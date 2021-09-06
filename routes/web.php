@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(app()->getLocale()."/");
+    return redirect("/en");
 });
 
 Auth::routes();

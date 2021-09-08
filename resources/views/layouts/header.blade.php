@@ -20,15 +20,37 @@
     <link href="/css/app.css" rel="stylesheet">
 </head>
 <body>
+<style>
+    .menu_pages{
+        margin-right: 5px;
+    }
+</style>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                <?php
+                    if(app()->getLocale() == null){
+                        app()->setLocale("en");
+                        }
+                ?>
                 <a class="navbar-brand" href="{{ url('/'.app()->getLocale()) }}">
                     {{ config('app.name', 'Amaranots') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <a class="menu_pages" href="/{{app()->getLocale()}}/about">about</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/career">career</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/contact">contact</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/day-with-us">day With us</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/greening">greening</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/offers">offers</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/sales">sales</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/terms">terms</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/tours">tours</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/weekend">weekend</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/why-amaranots">why-amaranots</a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -86,8 +108,12 @@
             </div>
         </nav>
         <main class="py-4">
+
             @yield('content')
         </main>
+        <footer>
+            <h1>footer</h1>
+        </footer>
     </div>
 </body>
 </html>

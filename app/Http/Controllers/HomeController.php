@@ -31,7 +31,7 @@ class HomeController extends Controller
             App::setLocale($lang);
         }
 
-        return view('main');
+        return view('home');
     }
 
     public function home(){

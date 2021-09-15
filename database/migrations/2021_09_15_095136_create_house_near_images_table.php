@@ -15,10 +15,14 @@ class CreateHouseNearImagesTable extends Migration
     {
         Schema::create('house_near_images', function (Blueprint $table) {
             $table->id();
-            $table->foreign('house_id')->references('id')->on('cottage_house');
+            $table->bigInteger("house_id")->unsigned();
             $table->string("img",191);
             $table->string("distance",191);
             $table->timestamps();
+        });
+
+        Schema::table('house_near_images', function($table) {
+            $table->foreign('house_id')->references('id')->on('cottage_house');
         });
     }
 

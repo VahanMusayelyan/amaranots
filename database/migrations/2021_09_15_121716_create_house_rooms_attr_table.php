@@ -15,10 +15,15 @@ class CreateHouseRoomsAttrTable extends Migration
     {
         Schema::create('house_rooms_attr', function (Blueprint $table) {
             $table->id();
-            $table->foreign('house_room_id')->references('id')->on('cottage_house_rooms');
-            $table->foreign('attr_id')->references('id')->on('house_attr');
+            $table->bigInteger("house_room_id")->unsigned();
+            $table->bigInteger("attr_id")->unsigned();
             $table->string("value",191)->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('house_rooms_attr', function($table) {
+            $table->foreign('house_room_id')->references('id')->on('cottage_house_rooms');
+            $table->foreign('attr_id')->references('id')->on('house_attr');
         });
     }
 

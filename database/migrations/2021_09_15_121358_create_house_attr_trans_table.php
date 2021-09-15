@@ -16,9 +16,13 @@ class CreateHouseAttrTransTable extends Migration
         Schema::create('house_attr_trans', function (Blueprint $table) {
             $table->id();
             $table->string("lang",50)->nullable();
-            $table->foreign("attr_id")->references("id")->on("house_attr");
+            $table->bigInteger("attr_id")->unsigned();
             $table->string("name",191)->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('house_attr_trans', function($table) {
+            $table->foreign("attr_id")->references("id")->on("house_attr");
         });
     }
 

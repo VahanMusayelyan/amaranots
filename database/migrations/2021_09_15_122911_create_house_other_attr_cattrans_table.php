@@ -16,9 +16,14 @@ class CreateHouseOtherAttrCattransTable extends Migration
         Schema::create('house_other_attr_cattrans', function (Blueprint $table) {
             $table->id();
             $table->string("lang",50)->nullable();
-            $table->foreign('attr_cat_id')->references('id')->on('house_other_attr_cat');
+            $table->bigInteger("attr_cat_id")->unsigned();
             $table->string("name",191)->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('house_other_attr_cattrans', function($table) {
+            $table->foreign('attr_cat_id')->references('id')->on('house_other_attr_cat');
+
         });
     }
 

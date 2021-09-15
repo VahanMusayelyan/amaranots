@@ -15,9 +15,14 @@ class CreateCottageHouseRoomsTable extends Migration
     {
         Schema::create('cottage_house_rooms', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger("house_id")->unsigned();
+            $table->bigInteger("room_id")->unsigned();
+            $table->timestamps();
+        });
+
+        Schema::table('cottage_house_rooms', function($table) {
             $table->foreign('house_id')->references('id')->on('cottage_house');
             $table->foreign('room_id')->references('id')->on('rooms');
-            $table->timestamps();
         });
     }
 

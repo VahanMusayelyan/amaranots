@@ -16,7 +16,7 @@ class CreateCottageHouseTable extends Migration
     {
         Schema::create('cottage_house', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger("user_id")->unsigned();
             $table->string("slug",191)->nullable();
             $table->text("coordinates")->nullable();
             $table->string("with_night",191)->nullable();
@@ -25,6 +25,11 @@ class CreateCottageHouseTable extends Migration
             $table->string("check_out",191)->nullable();
             $table->bigInteger("visitors")->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('cottage_house', function($table) {
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
+
         });
     }
 

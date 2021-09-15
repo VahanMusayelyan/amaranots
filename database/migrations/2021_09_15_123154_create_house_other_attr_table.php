@@ -15,10 +15,15 @@ class CreateHouseOtherAttrTable extends Migration
     {
         Schema::create('house_other_attr', function (Blueprint $table) {
             $table->id();
-            $table->foreign('attr_cat_id')->references('id')->on('house_other_attr_cat');
-            $table->foreign('house_id')->references('id')->on('cottage_house');
+            $table->bigInteger("attr_cat_id")->unsigned();
+            $table->bigInteger("house_id")->unsigned();
             $table->string('value',191)->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('house_other_attr', function($table) {
+            $table->foreign('attr_cat_id')->references('id')->on('house_other_attr_cat');
+            $table->foreign('house_id')->references('id')->on('cottage_house');
         });
     }
 

@@ -17,9 +17,13 @@ class CreateRoomsTransTable extends Migration
         Schema::create('rooms_trans', function (Blueprint $table) {
             $table->id();
             $table->string("lang",50)->nullable();
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->bigInteger("room_id")->unsigned();
             $table->string("name",191)->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('rooms_trans', function($table) {
+            $table->foreign('room_id')->references('id')->on('rooms');
         });
     }
 

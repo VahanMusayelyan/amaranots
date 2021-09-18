@@ -18,7 +18,7 @@ class CreateHouseAttrTable extends Migration
             $table->bigInteger("room_id")->unsigned();
             $table->string("name",191)->nullable();
             $table->string("ordering",191)->nullable();
-            $table->tinyInteger("valuable")->nullable();
+            $table->tinyInteger("valueable")->nullable();
             $table->timestamps();
         });
 

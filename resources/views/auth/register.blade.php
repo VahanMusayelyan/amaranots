@@ -38,41 +38,27 @@
                                 @enderror
                             </div>
                         </div>
+{{--                        <div class="form-group row">--}}
+{{--                            <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>--}}
 
-                        <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
-
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
-
-                            <div class="col-md-6">
-                                <?php
-                                if (app()->getLocale() == null) {
-                                    app()->setLocale(env("LOCALE"));
-                                }
-                                ?>
-                                <select id="category" name="cat_id">
-                                    @foreach($categories as $category)
-                                        <option value="{{$category->id}}"><?=$category->{"cat_".app()->getLocale()}?></option>
-                                    @endforeach
-                                </select>
-                                @error('category')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+{{--                            <div class="col-md-6">--}}
+{{--                                <?php--}}
+{{--                                if (app()->getLocale() == null) {--}}
+{{--                                    app()->setLocale(env("LOCALE"));--}}
+{{--                                }--}}
+{{--                                ?>--}}
+{{--                                <select id="category" name="cat_id">--}}
+{{--                                    @foreach($categories as $category)--}}
+{{--                                        <option value="{{$category->id}}"><?=$category->{"cat_".app()->getLocale()}?></option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                                @error('category')--}}
+{{--                                <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{ $message }}</strong>--}}
+{{--                                    </span>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

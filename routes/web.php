@@ -1,6 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,20 +17,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect("/en");
+
+
+Route::group(['namespace' => 'App\Http\Controllers'], function() {
+    Route::get('/dashboard', "AdminController@index")->name("admin.dashboard");
+
+    Route::get('/dashboard/rooms', "AdminController@rooms")->name("admin.room");
+    Route::get('/dashboard/rooms/{id}/edit', "AdminController@roomEdit")->name("admin.room.edit");
+    Route::get('/dashboard/rooms/{id}/delete', "AdminController@roomDelete")->name("admin.room.delete");
+    Route::post('/dashboard/rooms/update', "AdminController@roomUpdate")->name("admin.room.update");
+
+    Route::get('/dashboard/attributes', "AdminController@attributes")->name("admin.attributes");
+    Route::post('/dashboard/attribute/add', "AdminController@addAttribute")->name("admin.attribute.add");
+    Route::get('/dashboard/attribute/{id}/edit', "AdminController@attributeEdit")->name("admin.attr.edit");
+    Route::get('/dashboard/attribute/{id}/delete', "AdminController@attributeDelete")->name("admin.attr.delete");
+    Route::post('/dashboard/attribute/update', "AdminController@attributeUpdate")->name("admin.attr.update");
 });
 
 Auth::routes();
 
+Route::get('/', [HomeController::class, 'index'])->name('locale');
 
-
-
-
-// Backend routes
 Route::prefix('{language}')
     ->group(function () {
-        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('locale');
+        Route::get('/', [HomeController::class, 'index'])->name('locale');
 
         Route::get('/home', function (){
             return view("home");

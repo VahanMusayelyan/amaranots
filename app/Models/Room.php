@@ -17,4 +17,10 @@ class Room extends Model
     protected $fillable = [
         'name'
     ];
+
+    protected $with = ['roomTrans'];
+
+    public function roomTrans(){
+        return $this->hasOne(RoomTrans::class);
+    }
 }

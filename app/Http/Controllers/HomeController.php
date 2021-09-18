@@ -2,44 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
+use App\Models\RoomTrans;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($lang)
+    public function index($locale = null)
     {
-        $array = ['en','ru','hy'];
-
-        if(in_array($lang, $array)){
-            Session()->put('locale', $lang);
-            App::setLocale($lang);
+        if ($locale != null && in_array($locale, config('app.locales'))) {
+            App::setlocale($locale);
+            Session::put("applocale", App::getLocale($locale));
+        } else {
+            Session::put("applocale", config('app.fallback_locale'));
+            App::setlocale(config('app.fallback_locale'));
+            $locale = '';
         }
 
-        return view('home');
-    }
+        $roomTrans = Room::select()->get();
 
-    public function home(){
-
-        return view('home');
-    }
-    public function main(){
-
-        return view('main');
+        return view('home')->with([
+            "roomTrans" => $roomTrans
+        ]);
     }
 }

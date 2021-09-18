@@ -9,9 +9,16 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- Scripts -->
+
+
+    <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <!-- Styles -->
 </head>
 <body>
 <style>
@@ -22,12 +29,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <?php
-                    if(app()->getLocale() == null){
-                        app()->setLocale("en");
-                        }
-                ?>
-                <a class="navbar-brand" href="{{ url('/'.app()->getLocale()) }}">
+                <a class="navbar-brand" href="/dashboard">
                     {{ config('app.name', 'Amaranots') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -91,9 +93,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a href="/en{{ltrim(request()->path(),app()->getLocale())}}">English</a>
-                                    <a href="/ru{{ltrim(request()->path(),app()->getLocale())}}">Russian</a>
-                                    <a href="/hy{{ltrim(request()->path(),app()->getLocale())}}">Armenian</a>
+                                    <a href="/en">English</a>
+                                    <a href="/ru">Russian</a>
+                                    <a href="/hy">Armenian</a>
                                 </div>
                             </li>
                         @endguest
@@ -105,13 +107,12 @@
 
             @yield('content')
         </main>
+        <footer>
+            <div class="container">
+                <h1>footer</h1>
+            </div>
+        </footer>
     </div>
-<footer>
-    <div class="container">
-        <h1>footer</h1>
-    </div>
-</footer>
-
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

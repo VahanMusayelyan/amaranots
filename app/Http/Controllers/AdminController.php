@@ -11,7 +11,9 @@ use App\Models\HouseOtherAttrCatTrans;
 use App\Models\Room;
 use App\Models\RoomTrans;
 use App\Scopes\LanguageScope;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -29,110 +31,122 @@ class AdminController extends Controller
         return view("admin.dashboard");
     }
 
-    public function attributes()
-    {
-        $roomTrans = RoomTrans::withoutGlobalScope(LanguageScope::class)->where("lang","hy")->get();
-
-        $attrs = HouseAttr::withoutGlobalScope(LanguageScope::class)->get();
-
-        $attrsHy = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("lang","hy")->orderBy("attr_id","asc")->get();
-        $attrsEn = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("lang","en")->orderBy("attr_id","asc")->get();
-        $attrsRu = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("lang","ru")->orderBy("attr_id","asc")->get();
-
-
-        return view("admin.attribute")->with([
-            "attrs"     => $attrs,
-            "roomTrans" => $roomTrans,
-            "attrsHy"   => $attrsHy,
-            "attrsEn"   => $attrsEn,
-            "attrsRu"   => $attrsRu,
-        ]);
-    }
-
     public function rooms()
     {
-        $roomsHy = Room::select("rooms.*","rooms_trans.name as name_trans","rooms_trans.lang","rooms_trans.room_id")
-            ->leftjoin("rooms_trans","rooms_trans.room_id","=","rooms.id")
-            ->where("rooms_trans.lang","hy")
+        $roomsHy = Room::select("rooms.*", "rooms_trans.name as name_trans", "rooms_trans.lang", "rooms_trans.room_id")
+            ->leftjoin("rooms_trans", "rooms_trans.room_id", "=", "rooms.id")
+            ->where("rooms_trans.lang", "hy")
             ->orderBy("rooms_trans.room_id")
             ->get();
-        $roomsRu = Room::select("rooms.*","rooms_trans.name as name_trans","rooms_trans.lang","rooms_trans.room_id")
-            ->leftjoin("rooms_trans","rooms_trans.room_id","=","rooms.id")
-            ->where("rooms_trans.lang","ru")
+        $roomsRu = Room::select("rooms.*", "rooms_trans.name as name_trans", "rooms_trans.lang", "rooms_trans.room_id")
+            ->leftjoin("rooms_trans", "rooms_trans.room_id", "=", "rooms.id")
+            ->where("rooms_trans.lang", "ru")
             ->orderBy("rooms_trans.room_id")
             ->get();
-        $roomsEn = Room::select("rooms.*","rooms_trans.name as name_trans","rooms_trans.lang","rooms_trans.room_id")
-            ->leftjoin("rooms_trans","rooms_trans.room_id","=","rooms.id")
-            ->where("rooms_trans.lang","en")
+        $roomsEn = Room::select("rooms.*", "rooms_trans.name as name_trans", "rooms_trans.lang", "rooms_trans.room_id")
+            ->leftjoin("rooms_trans", "rooms_trans.room_id", "=", "rooms.id")
+            ->where("rooms_trans.lang", "en")
             ->orderBy("rooms_trans.room_id")
             ->get();
 
         return view("admin.rooms")->with([
-            "roomsHy" =>$roomsHy,
-            "roomsEn" =>$roomsEn,
-            "roomsRu" =>$roomsRu,
+            "roomsHy" => $roomsHy,
+            "roomsEn" => $roomsEn,
+            "roomsRu" => $roomsRu,
         ]);
     }
 
     public function roomEdit($id)
     {
-        $roomTrans = RoomTrans::withoutGlobalScope(LanguageScope::class)->where("room_id",$id)->orderBy("lang","asc")->get();
+        $roomTrans = RoomTrans::withoutGlobalScope(LanguageScope::class)->where("room_id", $id)->orderBy("lang", "asc")->get();
 
         return view("admin.room_edit")->with([
-            "roomTrans" =>$roomTrans
+            "roomTrans" => $roomTrans
         ]);
     }
 
     public function roomUpdate(Request $request)
     {
-        RoomTrans::withoutGlobalScope(LanguageScope::class)->where("room_id",$request->room_id)->delete();
+        RoomTrans::withoutGlobalScope(LanguageScope::class)->where("room_id", $request->room_id)->delete();
 
-        foreach ($this->lang as $lang){
+        foreach ($this->lang as $lang) {
             RoomTrans::insert([
                 "room_id" => $request->room_id,
-                "name"    => $request->{"room_$lang"},
-                "lang"    => $lang
+                "name" => $request->{"room_$lang"},
+                "lang" => $lang
             ]);
         }
 
         return redirect("/dashboard/rooms");
     }
 
+    public function attributes()
+    {
+        $roomTrans = RoomTrans::withoutGlobalScope(LanguageScope::class)->where("lang", "hy")->get();
+
+        $attrs = HouseAttr::withoutGlobalScope(LanguageScope::class)->get();
+
+        $attrsHy = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("lang", "hy")->orderBy("attr_id", "asc")->get();
+        $attrsEn = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("lang", "en")->orderBy("attr_id", "asc")->get();
+        $attrsRu = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("lang", "ru")->orderBy("attr_id", "asc")->get();
+
+
+        return view("admin.attribute")->with([
+            "attrs" => $attrs,
+            "roomTrans" => $roomTrans,
+            "attrsHy" => $attrsHy,
+            "attrsEn" => $attrsEn,
+            "attrsRu" => $attrsRu,
+        ]);
+    }
+
     public function addAttribute(Request $request)
     {
         $attr = new HouseAttr();
-        $attr->name      = $request->attr_hy;
-        $attr->room_id   = $request->room_id;
+        $attr->name = $request->attr_hy;
+        $attr->room_id = $request->room_id;
         $attr->valueable = $request->valueable;
         $attr->save();
 
         HouseAttrTrans::insert([
-            "lang"    => "hy",
+            "lang" => "hy",
             "attr_id" => $attr->id,
-            "name"    => $request->name
+            "name" => $request->attr_hy
         ]);
 
         return redirect()->back();
     }
 
-    public function attributeEdit ($id)
+    public function attributeEdit($id)
     {
-        $attr = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("attr_id", $id)->get();
+        $roomTrans = RoomTrans::withoutGlobalScope(LanguageScope::class)->where("lang", "hy")->get();
+
+        $attr = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)
+            ->select("house_attr_trans.*", "house_attr.room_id")
+            ->leftjoin("house_attr", "house_attr_trans.attr_id", "=", "house_attr.id")
+            ->where("house_attr_trans.attr_id", $id)->get();
 
         return view("admin.attr_edit")->with([
-            "attr" => $attr
+            "attr" => $attr,
+            "roomTrans" => $roomTrans
         ]);
     }
 
     public function attributeUpdate(Request $request)
     {
-        HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("attr_id",$request->attr_id)->delete();
+        HouseAttr::withoutGlobalScope(LanguageScope::class)->where("id", $request->attr_id)->update([
+            "name" => $request->attr_hy,
+            "room_id" => $request->room_id,
+            "valueable" => $request->valueable,
+        ]);
 
-        foreach ($this->lang as $lang){
+        HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("attr_id", $request->attr_id)->delete();
+
+        foreach ($this->lang as $lang) {
             HouseAttrTrans::insert([
                 "attr_id" => $request->attr_id,
-                "name"    => $request->{"attr_$lang"},
-                "lang"    => $lang
+                "name" => $request->{"attr_$lang"},
+                "lang" => $lang
             ]);
         }
 
@@ -370,5 +384,5 @@ class AdminController extends Controller
 
         return redirect("/dashboard/blogs");
     }
->>>>>>> f1a95b3... Other attributes, blogs create, edit, update, delete.
+
 }

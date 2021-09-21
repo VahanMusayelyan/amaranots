@@ -17,4 +17,10 @@ class HouseOtherAttrCat extends Model
         'type',
         'value'
     ];
+
+    protected $with = ['otherAttrTrans'];
+
+    public function otherAttrTrans(){
+        return $this->hasOne(HouseOtherAttrCatTrans::class, "attr_cat_id");
+    }
 }

@@ -11,16 +11,22 @@
                     <li><a href="/dashboard/blogs">Blog</a></li>
 
                 </ul>
-                <form action="/dashboard/attribute/add" method="POST">
+                <form action="/dashboard/other-attribute/add" method="POST">
                     @csrf
                     <div class="p-5">
                         <form action=""></form>
                         <label for="attr_hy">Hy</label>
                         <input id="attr_hy" class="form-control" name="attr_hy" required/>
-                        <select name="room_id" id="">
-                            @foreach($roomTrans as $room)
-                                <option value="{{$room->room_id}}">{{$room->name}}</option>
+                        <select name="parent_id" id="">
+                            <option value=""></option>
+                            @foreach($parents as $parent)
+                                <option value="{{$parent->id}}">{{$parent->name}}</option>
                             @endforeach
+                        </select>
+
+                        <select name="type" id="">
+                            <option value="radio">Radio</option>
+                            <option value="checkbox">Checkbox</option>
                         </select>
 
                         <select name="valueable" id="">
@@ -57,11 +63,11 @@
                                 {{$attr->name}}
                             </td>
                             <td>
-                                <?=(isset($attrsRu[$k])) ? $attrsRu[$k]->name : "" ?>
+                                <?=(isset($attrsRu[$k])) ? $attrsEn[$k]->name : "" ?>
                             </td>
                             <td>
-                                <a href="{{route("admin.attr.edit", $attr->attr_id)}}">Edit</a>
-                                <a href="{{route("admin.attr.delete", $attr->attr_id)}}">Delete</a>
+                                <a href="{{route("admin.otherattr.edit", $attr->attr_cat_id)}}">Edit</a>
+                                <a href="{{route("admin.otherattr.delete", $attr->attr_cat_id)}}">Delete</a>
                             </td>
                         </tr>
                     @endforeach

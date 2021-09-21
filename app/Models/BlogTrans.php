@@ -6,16 +6,20 @@ use App\Scopes\LanguageScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HouseAttrTrans extends Model
+class BlogTrans extends Model
 {
     use HasFactory;
 
-    protected $table = "house_attr_trans";
+    protected $table = "blogs_trans";
 
     protected $fillable = [
+        'blog_id',
         'lang',
-        'attr_cat_id',
-        'name'
+        'theme',
+        'tags',
+        'header',
+        'content_first',
+        'content_second'
     ];
 
     protected static function booted()

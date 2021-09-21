@@ -15,16 +15,11 @@
                     <form action="/dashboard/attribute/update" method="POST">
                         @csrf
                         <div class="form-group">
-                            <select name="room_id" id="">
-                                @foreach($roomTrans as $room)
-
-                                    <option value="{{$room->room_id}}" <?=($attr[0]->room_id == $room->room_id) ? "selected" : ""?>>{{$room->name}}</option>
+                            <select name="parent_id" id="">
+                                <option value=""></option>
+                                @foreach($parents as $parent)
+                                    <option value="{{$parent->id}}" <?=($attr[0]->parent_id == $parent->id) ? "selected" : ""; ?> >{{$parent->name}}</option>
                                 @endforeach
-                            </select>
-
-                            <select name="valueable" id="">
-                                <option value="0" <?=($attr[0]->valueable == 0) ? "selected" : ""?>>Արժեք առկա Չէ</option>
-                                <option value="1" <?=($attr[0]->valueable == 1) ? "selected" : ""?>>Արժեք առկա է</option>
                             </select>
                             <div class="d-flex pt-3">
                                 @if(count($attr) > 1)
@@ -35,14 +30,14 @@
                                 @else
                                     <span>{{$attr[0]->lang}}</span>
                                     <input type="text" value="{{$attr[0]->name}}"
-                                           name="attr_hy">
+                                           name="attr_{{$attr[0]->lang}}">
                                     <span>En</span>
                                     <input type="text" value="" name="attr_en" required>
                                     <span>Ru</span>
                                     <input type="text" value="" name="attr_ru" required>
                                 @endif
 
-                                <input type="text" name="attr_id" value="{{$attr[0]->attr_id}}" hidden>
+                                <input type="text" name="attr_id" value="{{$attr[0]->attr_cat_id}}" hidden>
                             </div>
                             <button class="btn btn-primary mt-3" type="submit">Submit</button>
                         </div>

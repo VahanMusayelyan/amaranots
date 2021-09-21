@@ -8,7 +8,6 @@
                     <li><a href="/dashboard/attributes">Attributes</a></li>
                     <li><a href="/dashboard/other-attributes">Other Attributes</a></li>
                     <li><a href="/dashboard/rooms">Rooms</a></li>
-                    <li><a href="/dashboard/blogs">Blog</a></li>
 
                 </ul>
             </div>

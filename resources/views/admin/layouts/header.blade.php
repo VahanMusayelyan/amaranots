@@ -36,17 +36,17 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/about">about</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/career">career</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/contact">contact</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/day-with-us">day With us</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/greening">greening</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/offers">offers</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/sales">sales</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/terms">terms</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/tours">tours</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/weekend">weekend</a>--}}
-{{--                <a class="menu_pages" href="/{{app()->getLocale()}}/why-amaranots">why-amaranots</a>--}}
+                <a class="menu_pages" href="/{{app()->getLocale()}}/about">about</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/career">career</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/contact">contact</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/day-with-us">day With us</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/greening">greening</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/offers">offers</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/sales">sales</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/terms">terms</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/tours">tours</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/weekend">weekend</a>
+                <a class="menu_pages" href="/{{app()->getLocale()}}/why-amaranots">why-amaranots</a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->

@@ -8,7 +8,6 @@
                     <li><a href="/dashboard/attributes">Attributes</a></li>
                     <li><a href="/dashboard/other-attributes">Other Attributes</a></li>
                     <li><a href="/dashboard/rooms">Rooms</a></li>
-                    <li><a href="/dashboard/blogs">Blog</a></li>
 
                 </ul>
                 <form action="/dashboard/attribute/add" method="POST">
@@ -16,7 +15,7 @@
                     <div class="p-5">
                         <form action=""></form>
                         <label for="attr_hy">Hy</label>
-                        <input id="attr_hy" class="form-control" name="attr_hy" required/>
+                        <input id="attr_hy" class="form-group" name="attr_hy" required/>
                         <select name="room_id" id="">
                             @foreach($roomTrans as $room)
                                 <option value="{{$room->room_id}}">{{$room->name}}</option>
@@ -57,7 +56,7 @@
                                 {{$attr->name}}
                             </td>
                             <td>
-                                <?=(isset($attrsRu[$k])) ? $attrsRu[$k]->name : "" ?>
+                                <?=(isset($attrsRu[$k])) ? $attrsEn[$k]->name : "" ?>
                             </td>
                             <td>
                                 <a href="{{route("admin.attr.edit", $attr->attr_id)}}">Edit</a>

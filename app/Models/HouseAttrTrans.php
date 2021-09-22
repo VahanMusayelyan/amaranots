@@ -14,7 +14,7 @@ class HouseAttrTrans extends Model
 
     protected $fillable = [
         'lang',
-        'attr_cat_id',
+        'attr_id',
         'name'
     ];
 

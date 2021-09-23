@@ -15,12 +15,23 @@ class HouseAttr extends Model
         'room_id',
         'name',
         'ordering',
+        'value_name',
         'valueable'
     ];
 
-    protected $with = ['attrTrans'];
 
-    public function attrTrans(){
+    public function allAttrTrans()
+    {
+        return $this->hasMany(HouseAttrTrans::class, "attr_id")->withoutGlobalScopes()->orderBy("lang","asc");
+    }
+
+    public function attrTrans()
+    {
         return $this->hasOne(HouseAttrTrans::class, "attr_id");
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'room_id');
     }
 }

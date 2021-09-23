@@ -18,9 +18,13 @@ class Room extends Model
         'name'
     ];
 
-    protected $with = ['roomTrans'];
-
-    public function roomTrans(){
+    public function roomTrans()
+    {
         return $this->hasOne(RoomTrans::class);
+    }
+
+    public function roomAttr()
+    {
+        return $this->hasMany(HouseAttr::class, 'room_id');
     }
 }

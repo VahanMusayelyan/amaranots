@@ -5,8 +5,8 @@
         <div class="row justify-content-center">
 
             @foreach($rooms as $room)
-            <div class="col-md-8">
-                <h1>{{$room->roomTrans->name}}</h1>
+            <div class="col-md-8 mb-4">
+                <h4>{{$room->roomTrans->name}}</h4>
                 @foreach($room->roomAttr as $k => $attr)
 
 
@@ -23,6 +23,22 @@
                 @endforeach
             </div>
             @endforeach
+
+                @foreach($otherAttr as $k => $other)
+                    <div class="col-md-8 mb-4">
+                        <h4>{{$other->name}}</h4>
+                        @foreach($other->otherAttrSub as $m => $otherAttr)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="other{{$m}}_{{$k}}">
+                                <label class="form-check-label" for="other{{$m}}_{{$k}}">
+                                    {{$otherAttr->name}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
+
+
         </div>
     </div>
 @endsection

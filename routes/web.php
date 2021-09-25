@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CottageHouseController;
 use Illuminate\Support\Facades\Session;
 
 /*
@@ -78,5 +79,7 @@ Route::prefix('{language}')
         Route::get('/why-amaranots', function (){
             return view("why_amaranots");
         });
+
+        Route::get('/cottage-house', [CottageHouseController::class, 'index'])->name('locale');
 
     });

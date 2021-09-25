@@ -11,7 +11,7 @@ use App\Models\HouseOtherAttrCatTrans;
 use App\Models\Room;
 use App\Models\RoomTrans;
 use App\Scopes\LanguageScope;
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -82,21 +82,11 @@ class AdminController extends Controller
 
     public function attributes()
     {
-        $roomTrans = RoomTrans::withoutGlobalScope(LanguageScope::class)->where("lang", "hy")->get();
 
-        $attrs = HouseAttr::withoutGlobalScope(LanguageScope::class)->get();
-
-        $attrsHy = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("lang", "hy")->orderBy("attr_id", "asc")->get();
-        $attrsEn = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("lang", "en")->orderBy("attr_id", "asc")->get();
-        $attrsRu = HouseAttrTrans::withoutGlobalScope(LanguageScope::class)->where("lang", "ru")->orderBy("attr_id", "asc")->get();
-
+        $rooms = Room::with('roomAttr')->get();
 
         return view("admin.attribute")->with([
-            "attrs" => $attrs,
-            "roomTrans" => $roomTrans,
-            "attrsHy" => $attrsHy,
-            "attrsEn" => $attrsEn,
-            "attrsRu" => $attrsRu,
+            "rooms" => $rooms
         ]);
     }
 

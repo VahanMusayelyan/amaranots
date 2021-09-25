@@ -8,6 +8,7 @@
                     <li><a href="/dashboard/attributes">Attributes</a></li>
                     <li><a href="/dashboard/other-attributes">Other Attributes</a></li>
                     <li><a href="/dashboard/rooms">Rooms</a></li>
+                    <li><a href="/dashboard/blogs">Blog</a></li>
 
                 </ul>
                 <form action="/dashboard/attribute/add" method="POST">
@@ -15,10 +16,10 @@
                     <div class="p-5">
                         <form action=""></form>
                         <label for="attr_hy">Hy</label>
-                        <input id="attr_hy" class="form-group" name="attr_hy" required/>
+                        <input id="attr_hy" class="form-control" name="attr_hy" required/>
                         <select name="room_id" id="">
-                            @foreach($roomTrans as $room)
-                                <option value="{{$room->room_id}}">{{$room->name}}</option>
+                            @foreach($rooms as $room)
+                                <option value="{{$room->id}}">{{$room->name}}</option>
                             @endforeach
                         </select>
 
@@ -39,6 +40,7 @@
                         <th scope="col">En</th>
                         <th scope="col">Hy</th>
                         <th scope="col">Ru</th>
+                        <th scope="col">Room</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -46,23 +48,39 @@
                     @php
                         $j = 1;
                     @endphp
-                    @foreach($attrsHy as $k => $attr )
-                        <tr>
-                            <td>{{$j++}}</td>
-                            <td>
-                                <?=(isset($attrsEn[$k])) ? $attrsEn[$k]->name : "" ?>
-                            </td>
-                            <td>
-                                {{$attr->name}}
-                            </td>
-                            <td>
-                                <?=(isset($attrsRu[$k])) ? $attrsEn[$k]->name : "" ?>
-                            </td>
-                            <td>
-                                <a href="{{route("admin.attr.edit", $attr->attr_id)}}">Edit</a>
-                                <a href="{{route("admin.attr.delete", $attr->attr_id)}}">Delete</a>
-                            </td>
-                        </tr>
+                    @foreach($rooms as $k => $room )
+                        @foreach($room->roomAttr as $attr)
+                            <tr>
+                                <td>{{$j++}}</td>
+                                @foreach($attr->allAttrTrans as $m => $attrTrans)
+                                    @if(count($attr->allAttrTrans) == 1)
+                                        <td>
+
+                                        </td>
+                                        <td>
+                                            {{$attrTrans->name}}
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                    @else
+                                        <td>
+                                            {{$attrTrans->name}}
+                                        </td>
+                                    @endif
+
+                                @php($attrId = $attrTrans->attr_id)
+                                @endforeach
+                                <td>
+                                    {{$room->name}}
+                                </td>
+                                <td>
+                                    <a href="{{route("admin.attr.edit", $attrId)}}">Edit</a>
+                                    <a href="{{route("admin.attr.delete", $attrId)}}">Delete</a>
+                                </td>
+
+                            </tr>
+                        @endforeach
                     @endforeach
                     </tbody>
                 </table>

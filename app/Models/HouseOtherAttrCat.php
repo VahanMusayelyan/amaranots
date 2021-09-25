@@ -17,4 +17,13 @@ class HouseOtherAttrCat extends Model
         'type',
         'value'
     ];
+
+
+    public function otherAttrTrans(){
+        return $this->hasOne(HouseOtherAttrCatTrans::class, "attr_cat_id");
+    }
+
+    public function otherAttrSub(){
+        return $this->hasMany(HouseOtherAttrCat::class, "parent_id");
+    }
 }

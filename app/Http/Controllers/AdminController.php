@@ -151,6 +151,7 @@ class AdminController extends Controller
         return redirect("/dashboard/attributes");
     }
 
+
     public function otherAttributes()
     {
         $attrs = HouseOtherAttrCat::withoutGlobalScope(LanguageScope::class)->get();
@@ -262,13 +263,13 @@ class AdminController extends Controller
         }
 
         $blog = new Blog();
-        $blog->theme          = $request->theme;
-        $blog->tags           = $request->tags;
-        $blog->header         = $request->header;
-        $blog->content_first  = $request->content_first;
+        $blog->theme = $request->theme;
+        $blog->tags = $request->tags;
+        $blog->header = $request->header;
+        $blog->content_first = $request->content_first;
         $blog->content_second = $request->content_second;
-        $blog->img_first      = $imageNameFirst;
-        $blog->img_second     = $imageNameSecond;
+        $blog->img_first = $imageNameFirst;
+        $blog->img_second = $imageNameSecond;
         $blog->save();
 
         BlogTrans::insert([
@@ -284,28 +285,30 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function blogEdit($id){
+    public function blogEdit($id)
+    {
         $blog = Blog::where("id", $id)->first();
         $blogHy = BlogTrans::withoutGlobalScope(LanguageScope::class)->where("blog_id", $id)->where("lang", "hy")->first();
         $blogEn = BlogTrans::withoutGlobalScope(LanguageScope::class)->where("blog_id", $id)->where("lang", "en")->first();
         $blogRu = BlogTrans::withoutGlobalScope(LanguageScope::class)->where("blog_id", $id)->where("lang", "ru")->first();
 
         return view("admin.blog_edit")->with([
-            "blog"   => $blog,
+            "blog" => $blog,
             "blogHy" => $blogHy,
             "blogEn" => $blogEn,
             "blogRu" => $blogRu,
         ]);
     }
 
-    public function blogUpdate(Request $request){
+    public function blogUpdate(Request $request)
+    {
         $blogUpdated = Blog::where("id", $request->number)->first();
 
         $blog = Blog::find($request->number);
 
         if (isset($request->img_first)) {
-            if(File::exists(public_path('img/blogs/'.$blogUpdated->image_first))){
-                File::delete(public_path('img/blogs/'.$blogUpdated->image_first));
+            if (File::exists(public_path('img/blogs/' . $blogUpdated->image_first))) {
+                File::delete(public_path('img/blogs/' . $blogUpdated->image_first));
             }
             $imgFirst = $request->img_first;
             $imageNameFirst = time() . '0.' . $imgFirst->extension();
@@ -315,8 +318,8 @@ class AdminController extends Controller
         }
 
         if (isset($request->img_second)) {
-            if(File::exists(public_path('img/blogs/'.$blogUpdated->image_second))){
-                File::delete(public_path('img/blogs/'.$blogUpdated->image_second));
+            if (File::exists(public_path('img/blogs/' . $blogUpdated->image_second))) {
+                File::delete(public_path('img/blogs/' . $blogUpdated->image_second));
             }
             $imgSecond = $request->img_second;
             $imageNameSecond = time() . '1.' . $imgSecond->extension();
@@ -355,11 +358,11 @@ class AdminController extends Controller
     public function blogDelete($id)
     {
         $blog = Blog::where("id", $id)->first();
-        if(File::exists(public_path('img/blogs/'.$blog->image_first))){
-           File::delete(public_path('img/blogs/'.$blog->image_first));
+        if (File::exists(public_path('img/blogs/' . $blog->image_first))) {
+            File::delete(public_path('img/blogs/' . $blog->image_first));
         }
-        if(File::exists(public_path('img/blogs/'.$blog->image_second))){
-           File::delete(public_path('img/blogs/'.$blog->image_second));
+        if (File::exists(public_path('img/blogs/' . $blog->image_second))) {
+            File::delete(public_path('img/blogs/' . $blog->image_second));
         }
 
         $result = BlogTrans::withoutGlobalScope(LanguageScope::class)->where("blog_id", $id)->delete();
@@ -371,4 +374,5 @@ class AdminController extends Controller
 
         return redirect("/dashboard/blogs");
     }
+
 }

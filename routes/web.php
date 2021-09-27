@@ -18,21 +18,33 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+Route::prefix('dashboard')
+    ->namespace('App\Http\Controllers')
+    ->group(function () {
+    Route::get('/', "AdminController@index")->name("admin.dashboard");
 
+    Route::get('/rooms', "AdminController@rooms")->name("admin.room");
+    Route::get('/rooms/{id}/edit', "AdminController@roomEdit")->name("admin.room.edit");
+    Route::get('/rooms/{id}/delete', "AdminController@roomDelete")->name("admin.room.delete");
+    Route::post('/rooms/update', "AdminController@roomUpdate")->name("admin.room.update");
 
-Route::group(['namespace' => 'App\Http\Controllers'], function() {
-    Route::get('/dashboard', "AdminController@index")->name("admin.dashboard");
+    Route::get('/attributes', "AdminController@attributes")->name("admin.attributes");
+    Route::post('/attribute/add', "AdminController@addAttribute")->name("admin.attribute.add");
+    Route::get('/attribute/{id}/edit', "AdminController@attributeEdit")->name("admin.attr.edit");
+    Route::get('/attribute/{id}/delete', "AdminController@attributeDelete")->name("admin.attr.delete");
+    Route::post('/attribute/update', "AdminController@attributeUpdate")->name("admin.attr.update");
 
-    Route::get('/dashboard/rooms', "AdminController@rooms")->name("admin.room");
-    Route::get('/dashboard/rooms/{id}/edit', "AdminController@roomEdit")->name("admin.room.edit");
-    Route::get('/dashboard/rooms/{id}/delete', "AdminController@roomDelete")->name("admin.room.delete");
-    Route::post('/dashboard/rooms/update', "AdminController@roomUpdate")->name("admin.room.update");
+    Route::get('/other-attributes', "AdminController@otherAttributes")->name("admin.otherattributes");
+    Route::post('/other-attribute/add', "AdminController@addOtherAttribute")->name("admin.otherattribute.add");
+    Route::get('/other-attribute/{id}/edit', "AdminController@otherAttributeEdit")->name("admin.otherattr.edit");
+    Route::get('/other-attribute/{id}/delete', "AdminController@otherAttributeDelete")->name("admin.otherattr.delete");
+    Route::post('/other-attribute/update', "AdminController@otherAttributeUpdate")->name("admin.otherattr.update");
 
-    Route::get('/dashboard/attributes', "AdminController@attributes")->name("admin.attributes");
-    Route::post('/dashboard/attribute/add', "AdminController@addAttribute")->name("admin.attribute.add");
-    Route::get('/dashboard/attribute/{id}/edit', "AdminController@attributeEdit")->name("admin.attr.edit");
-    Route::get('/dashboard/attribute/{id}/delete', "AdminController@attributeDelete")->name("admin.attr.delete");
-    Route::post('/dashboard/attribute/update', "AdminController@attributeUpdate")->name("admin.attr.update");
+    Route::get('/blogs', "AdminController@blogs")->name("admin.blogs");
+    Route::post('/blog/add', "AdminController@addBlog")->name("admin.blog.add");
+    Route::get('/blog/{id}/edit', "AdminController@blogEdit")->name("admin.blog.edit");
+    Route::get('/blog/{id}/delete', "AdminController@blogDelete")->name("admin.blog.delete");
+    Route::post('/blog/update', "AdminController@blogUpdate")->name("admin.blog.update");
 });
 
 Auth::routes();

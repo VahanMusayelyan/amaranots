@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HouseRoomAttr extends Model
+class FlatTrans extends Model
 {
     use HasFactory;
 
-    protected $table = "house_rooms_attr";
+    protected $table = "flats_trans";
 
     protected $fillable = [
-        'house_room_id',
-        'attr_id',
-        'value'
+        'lang',
+        'flat_id',
+        'name',
+        'state',
+        'city',
+        'address'
     ];
 }

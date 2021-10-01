@@ -23,6 +23,7 @@ class CreateCottageHouseTable extends Migration
             $table->string("without_night",191)->nullable();
             $table->string("check_in",191)->nullable();
             $table->string("check_out",191)->nullable();
+            $table->tinyInteger("sale")->nullable();
             $table->bigInteger("visitors")->nullable();
             $table->timestamps();
         });

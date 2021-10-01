@@ -25,6 +25,8 @@ class CreateFlatsTable extends Migration
             $table->tinyInteger("elevator")->nullable();
             $table->string("check_in",191)->nullable();
             $table->string("check_out",191)->nullable();
+            $table->integer("amount")->nullable();
+            $table->tinyInteger("sale")->nullable();
             $table->bigInteger("visitors")->nullable();
             $table->timestamps();
         });
